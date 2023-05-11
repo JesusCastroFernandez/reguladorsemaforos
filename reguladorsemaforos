@@ -1,0 +1,39 @@
+public class Semaforo {
+    private EstadoSemaforo estado;
+    private int tiempo;
+
+    public Semaforo() {
+        this.estado = EstadoSemaforo.VERDE;
+        this.tiempo = 10;
+    }
+
+    public void cambiarEstado() {
+        switch (estado) {
+            case VERDE:
+                estado = EstadoSemaforo.AMARILLO;
+                break;
+            case AMARILLO:
+                estado = EstadoSemaforo.ROJO;
+                break;
+            case ROJO:
+                estado = EstadoSemaforo.VERDE;
+                break;
+        }
+    }
+
+    public void iniciar() {
+        while (true) {
+            System.out.println("Semaforo en estado " + estado);
+            try {
+                Thread.sleep(tiempo * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            cambiarEstado();
+        }
+    }
+
+    public enum EstadoSemaforo {
+        VERDE, AMARILLO, ROJO
+    }
+}
